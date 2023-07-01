@@ -98,7 +98,7 @@ class DBscanPlay:
         np.sort(dist_vec)
 
         #Save to point array
-        original = np.zeros(nodeNum)
+        original =[point(0,0)] * nodeNum
         for i in range(nodeNum):
             original[i] = point(i, dist_vec[i])
 
@@ -209,7 +209,7 @@ class DBscanPlay:
 
         with open(fileName, 'w') as f:
             for i in range(0, nodeNum):
-                f.write(str(i +1) + "\t" + str(communityInfo[i]) + "\t" + isSeed[i] +"\n")
+                f.write(str(i +1) + "\t" + str(communityInfo[i]) + "\t" + str(isSeed[i]) +"\n")
             f.close()
 
         print("Time = " + str(end_time - start_time))
