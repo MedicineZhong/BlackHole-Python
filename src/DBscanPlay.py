@@ -11,7 +11,7 @@ class DBscanPlay:
     def __init__(self) -> None:
         pass
 
-    @staticmethod
+    #@staticmethod
     def dbscanCalculator(self, inputFile: str, minPts: int, removePercentage: float):
 
         start_time = time.time()
@@ -36,20 +36,18 @@ class DBscanPlay:
             f.close()
 
 
-        communitySelf = np.array(nodeNum)
-        points = np.array(nodeNum)
-
-        for i in range(const.DIM):
-            points[i] = np.array(nodeNum)
-
-        visited = np.array(nodeNum)
-        countN = np.array(nodeNum)
-        isSeed = np.array(nodeNum)
-        communityInfo = np.array(nodeNum)
+        #communitySelf = np.array(nodeNum)
+        #points = np.zeros(nodeNum)
+        points = np.zeros((const.DIM, nodeNum))
+        
+        visited = np.array([False] * nodeNum)
+        countN = np.zeros(nodeNum)
+        isSeed = np.array([False] * nodeNum)
+        communityInfo = np.zeros(nodeNum)
 
         for ttt in range(nodeNum):
             for j in range(const.DIM):
-                points[ttt][j] = 0
+                points[j][ttt] = 0
 
             visited[ttt] = False
             countN[ttt] = 0
@@ -57,7 +55,7 @@ class DBscanPlay:
             isSeed[ttt] = False
         
 
-        counter = 1
+        counter = 0
 
         with open(inputFile, 'r') as f:
             for line in f:
@@ -71,8 +69,8 @@ class DBscanPlay:
                 counter += 1
             f.close()
 
-        dist_vec = np.array(nodeNum)
-        dist_sorted = np.array(nodeNum)
+        dist_vec = np.zeros(nodeNum)
+        dist_sorted = np.zeros(nodeNum)
 
         eps = 0.0
 
@@ -81,7 +79,7 @@ class DBscanPlay:
                 dist_sorted[j] = self.calcDist(points, i, j)
 
             np.sort(dist_sorted)
-            dist_vec[i] = dist_sorted[minPts]
+            dist_vec[i] = dist_sorted[minPts - 1]
 
         #To select the eps value
         np.sort(dist_vec)
@@ -100,7 +98,7 @@ class DBscanPlay:
         np.sort(dist_vec)
 
         #Save to point array
-        original = np.array(nodeNum)
+        original = np.zeros(nodeNum)
         for i in range(nodeNum):
             original[i] = point(i, dist_vec[i])
 
@@ -219,10 +217,18 @@ class DBscanPlay:
 
 
     
-    @staticmethod
-    def calcDist(self, a, i:int, j:int) -> float:
-        sum = 0
-        for z in range(const.DIM):
-            sum += (a[z][i] - a[z][j]) ** 2
-        return math.sqrt(sum)
+    #@staticmethod
+    # def calcDist2(self, a, i:int, j:int) -> float:
+    #     sum = 0
+    #     for z in range(const.DIM):
+    #         sum += (a[z][i] - a[z][j]) ** 2
+    #     return math.sqrt(sum)
+    
+    def calcDist(self, a, i, j):
+        column_i = a[:, i]  # 提取第 i 列
+        column_j = a[:, j]  # 提取第 j 列
+        diff_squared = np.square(column_i - column_j)
+        sum_squared_diff = np.sum(diff_squared)
+        return np.sqrt(sum_squared_diff)
+
         

@@ -40,7 +40,7 @@ class edgeReader:
         with open(filePath, 'w') as f:
             for i in range(len(ncp.nodeVec)):
                 node = ncp.nodeVec[i]
-                f.write(str(node.getId()) + "\t")
+                f.write(str(node.getID()) + "\t")
                 for j in range(const.DIM):
                     f.write(str(node.getValue(j)) + "\t")
 

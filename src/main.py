@@ -36,6 +36,7 @@ fileName = sys.argv[1] + "_dimsnsion_" + sys.argv[2] + "_alpha_" + sys.argv[3] +
 cp.play(sys.argv[1], alpha, sys.argv[3], fileName)
 
 # DBSCAN
-DBscanPlay.dbscanCalculator(fileName, minPts, pruningFraction/100.0)
+dbc = DBscanPlay()
+dbc.dbscanCalculator(inputFile = fileName,minPts = minPts, removePercentage = pruningFraction/100.0)
 
 sys.exit(0)
