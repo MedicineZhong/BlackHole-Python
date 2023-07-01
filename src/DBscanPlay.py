@@ -3,7 +3,7 @@ import constantly as const
 import math
 import Util
 import time
-import point
+from point import point
 
 
 class DBscanPlay:
