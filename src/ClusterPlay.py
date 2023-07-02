@@ -183,7 +183,7 @@ class ClusterPlay:
 
 
     def adjustComponent(self, i: int, iter: int, expVar:exponentVar):
-        if iter >= 50 and expVar.getRepuFactor() < 1.0:
+        if iter >= 50 and expVar.getFinalRepuExponent() < 1.0:
             expVar.setAttrExponent(expVar.getFinalAttrExponent())
             expVar.setRepuExponent(expVar.getFinalRepuExponent())
 

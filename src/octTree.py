@@ -90,7 +90,7 @@ class octTree(IOctTree):
             return
         
         if(self.node != None):
-            self.addNode2(newNode, newPos, depth, mgr)
+            self.addNode2(self.node, newPos, depth, mgr)
             node = None
 
         for z in range(const.DIM):

@@ -7,7 +7,7 @@ class node:
         self.nodeId = nodeId
         self.points = np.array([0.0] * const.DIM)
         for i in range(const.DIM):
-            self.points[i] = (float(random.randint(0, 2147483647))/32767.0) - 0.5
+            self.points[i] = float(random.randint(0, 32767)/32767.0 - 0.5)
         self.clusterId = -1
         self.degree = 1
         self.ep = np.array([ep])
@@ -45,8 +45,10 @@ class node:
         self.ep = np.append(self.ep, id)
     
     def findEdge(self, origin, id)  -> bool:
-        x = np.where(self.ep == id)
-        return x != np.array([])
+        # x = np.where(self.ep == id)
+        # return x != np.array([])
+        index = np.searchsorted(self.ep, id, side='left')
+        return index < len(self.ep) and self.ep[index] == id
     
 
     def isnot_labeled(self) -> bool:
